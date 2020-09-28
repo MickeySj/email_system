@@ -15,6 +15,8 @@ public interface GoodMapper {
 
     List<Good> getAllLimit(@Param("current") int current, @Param("pageSize") int pageSize);
 
+    List<Good> getNewGoodLimit(@Param("current") int current, @Param("pageSize") int pageSize);
+
     Good findById(@Param("id") int id);
 
     Good findByName(@Param("name") String name);

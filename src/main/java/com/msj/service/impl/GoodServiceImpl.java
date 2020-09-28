@@ -34,6 +34,11 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
+    public List<Good> getNewGoodLimit(int current, int pageSize) {
+        return mapper.getNewGoodLimit((current - 1) * pageSize, pageSize);
+    }
+
+    @Override
     public Good findById(int id) {
         return mapper.findById(id);
     }

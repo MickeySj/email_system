@@ -6,7 +6,7 @@
         insert into admins(username,password) values (#{username},#{password});
     </insert>
     <update id="update" parameterType="admin">
-        
+        update admins set username=#{username},password=#{password} where id=#{id};
     </update>
     <delete id="delete" parameterType="int">
         delete from admins where id=#{id};

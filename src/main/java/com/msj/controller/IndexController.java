@@ -147,11 +147,10 @@ public class IndexController {
 
     @RequestMapping("/new")
     public String newGoods(Model model, @RequestParam(name = "current", required = false, defaultValue = "1") int current) {
-//        List<Good> goodList = goodService.getAll();
         PageUtils goodPageUtils = new PageUtils();
         goodPageUtils.setCurrent(current);
         goodPageUtils.setRecordTotal(goodService.getAllCount());
-        List<Good> goodList = goodService.getAllLimit(goodPageUtils.getCurrent(), goodPageUtils.getPageSize());
+        List<Good> goodList = goodService.getNewGoodLimit(goodPageUtils.getCurrent(), goodPageUtils.getPageSize());
         model.addAttribute("goodList", goodList);
         model.addAttribute("flag", 4);
         model.addAttribute("page", goodPageUtils);
