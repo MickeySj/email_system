@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msj.mapper.OrderMapper">
+    <insert id="insert" parameterType="order" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into orders(id,total,amount,status,paytype,name,phone,address,systime,user_id) values (null ,#{total},#{amount},#{status},#{paytype},#{name},#{phone},#{address},#{systime},#{userId});
+    </insert>
+    <update id="update" parameterType="order">
+        update orders set total=#{total},amount=#{amount},status=#{status},paytype=#{paytype},name=#{name},phone=#{phone},address=#{address},systime=#{systime},user_id=#{userId} where id=#{id};
+    </update>
+    <delete id="delete" parameterType="int">
+            delete from orders where id=#{id};
+    </delete>
+    <select id="getAll" resultType="order">
+        select * from orders order by id desc;
+    </select>
+    <select id="getByUserId" parameterType="int" resultType="com.msj.entity.Order">
+        select * from orders where user_id=#{userId};
+    </select>
+    <select id="findById" parameterType="int" resultType="com.msj.entity.Order">
+        select * from orders where id=#{id};
+    </select>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msj.mapper.TypeMapper">
+    <insert id="insert" parameterType="type">
+        insert into types(name,num) values (#{name},#{num});
+    </insert>
+    <update id="update" parameterType="type">
+        update from types set name=#{name},num=#{num} where id=#{id};
+    </update>
+    <delete id="delete" parameterType="int">
+        delete from types where id=#{id};
+    </delete>
+
+    <select id="getAll" resultType="type">
+        select * from types;
+    </select>
+    <select id="findById" parameterType="int" resultType="type">
+        select * from types where id=#{id};
+    </select>
+    <select id="findByName" parameterType="java.lang.String" resultType="type">
+        select * from types where name=#{name};
+    </select>
+</mapper>
