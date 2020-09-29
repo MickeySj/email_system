@@ -4,7 +4,7 @@
 <head>
 <title>重置密码</title>
 <meta charset="utf-8"/>
-<link rel="stylesheet" href="css/bootstrap.css"/> 
+<link rel="stylesheet" href="../admin/css/bootstrap.css"/>
 </head>
 <body>
 <div class="container">

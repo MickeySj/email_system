@@ -3,6 +3,8 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/type_add.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/type_edit.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index/cart.jsp" value="file://$PROJECT_DIR$/src/main/webapp/index" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index/detail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/index" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index/goods.jsp" value="file://$PROJECT_DIR$/src/main/webapp/index" />

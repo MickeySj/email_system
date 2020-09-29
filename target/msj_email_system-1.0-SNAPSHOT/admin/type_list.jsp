@@ -11,7 +11,7 @@
 
     <%@include file="header.jsp" %>
 
-    <div class="text-right"><a class="btn btn-warning" href="typeAdd">添加类目</a></div>
+    <div class="text-right"><a class="btn btn-warning" href="/type/typeAdd">添加类目</a></div>
 
     <br>
 

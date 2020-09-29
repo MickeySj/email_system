@@ -6,7 +6,7 @@
         insert into types(name,num) values (#{name},#{num});
     </insert>
     <update id="update" parameterType="type">
-        update from types set name=#{name},num=#{num} where id=#{id};
+        update types set name=#{name},num=#{num} where id=#{id};
     </update>
     <delete id="delete" parameterType="int">
         delete from types where id=#{id};
