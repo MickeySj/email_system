@@ -24,4 +24,5 @@ public class Good {
     private Integer sales;
     private String content;
     private Type type;
+    private Top top;
 }

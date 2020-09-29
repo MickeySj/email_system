@@ -17,6 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 public class Top {
     private Integer id;
-    private Integer type;
     private Integer goodId;
+    private Integer type;
 }

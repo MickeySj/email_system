@@ -13,7 +13,7 @@
     </delete>
 
     <select id="getAll" resultType="type">
-        select * from types;
+        select * from types order by num asc;
     </select>
     <select id="findById" parameterType="int" resultType="type">
         select * from types where id=#{id};

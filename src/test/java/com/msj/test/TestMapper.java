@@ -1,6 +1,7 @@
 package com.msj.test;
 
 import com.msj.entity.Cart;
+import com.msj.entity.Good;
 import com.msj.entity.Order;
 import com.msj.mapper.*;
 import com.msj.service.CartService;
@@ -37,7 +38,13 @@ public class TestMapper {
 
     @Test
     public void getAllClasses() {
-        System.out.println(topMapper.getRecordsTotal());
+        List<Good> goodList = goodMapper.getAllLimit(1, 10);
+        for (Good good : goodList) {
+            if(good.getTop().getType()==null)
+            {
+                System.out.println(good);
+            }
+        }
     }
 
     @Test

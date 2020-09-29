@@ -17,7 +17,7 @@
         <div>
             <ul class="nav navbar-nav">
                 <li <c:if test="${flag==1}">class="active"</c:if>><a href="/type/typeList">类目管理</a></li>
-                <li <c:if test="${flag==2}">class="active"</c:if>><a href="goodList">商品管理</a></li>
+                <li <c:if test="${flag==2}">class="active"</c:if>><a href="/goods/goodList">商品管理</a></li>
                 <li <c:if test="${flag==3}">class="active"</c:if>><a href="orderList">订单管理</a></li>
                 <li <c:if test="${flag==4}">class="active"</c:if>><a href="userList">用户管理</a></li>
                 <li <c:if test="${flag==5}">class="active"</c:if>><a href="adminList">管理员</a></li>

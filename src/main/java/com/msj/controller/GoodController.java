@@ -3,6 +3,7 @@ package com.msj.controller;
 import com.msj.entity.Good;
 import com.msj.mapper.TopMapper;
 import com.msj.service.GoodService;
+import com.msj.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,4 +39,16 @@ public class GoodController {
         return "index/detail";
     }
 
+    @RequestMapping("goodList")
+    public String goodList(Model model, @RequestParam(name = "current", required = false, defaultValue = "1") int current) {
+        PageUtils goodPageUtils = new PageUtils();
+        goodPageUtils.setCurrent(current);
+        goodPageUtils.setRecordTotal(goodService.getAllCount());
+        List<Good> goodList = goodService.getAllLimit(goodPageUtils.getCurrent(), goodPageUtils.getPageSize());
+        model.addAttribute("goodList", goodList);
+//        model.addAttribute("flag", 3);
+        model.addAttribute("page", goodPageUtils);
+        model.addAttribute("url", "/goods/goodList");
+        return "admin/good_list";
+    }
 }

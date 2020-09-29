@@ -13,7 +13,7 @@
     <%@include file="header.jsp" %>
 
     <br><br>
-    <form class="form-horizontal" action="typeSave" method="post" enctype="multipart/form-data">
+    <form class="form-horizontal" action="/type/typeSave" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="input_name" class="col-sm-1 control-label">名称</label>
             <div class="col-sm-4">

@@ -30,8 +30,8 @@
                 <td><p>${type.name}</p></td>
                 <td><p>${type.num}</p></td>
                 <td>
-                    <a class="btn btn-primary" href="typeEdit?id=${type.id}">修改</a>
-                    <a class="btn btn-danger" href="typeDelete?id=${type.id}">删除</a>
+                    <a class="btn btn-primary" href="/type/typeEdit?id=${type.id}">修改</a>
+                    <a class="btn btn-danger" href="/type/typeDelete?id=${type.id}">删除</a>
                 </td>
             </tr>
         </c:forEach>

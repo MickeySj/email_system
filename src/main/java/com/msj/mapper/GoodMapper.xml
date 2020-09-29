@@ -17,6 +17,11 @@
             <result property="name" column="type_name"></result>
             <result property="num" column="num"></result>
         </association>
+        <association property="top" javaType="top">
+            <id property="id" column="topId"></id>
+            <result property="goodId" column="id"></result>
+            <result property="type" column="type"></result>
+        </association>
     </resultMap>
 
     <insert id="insert" parameterType="good">
@@ -31,17 +36,21 @@
     </delete>
 
     <select id="getAll" resultMap="goodMap">
-        select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num from goods g
-        inner join types t on t.id = g.type_id;
+         select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num ,tops.id topId,tops.good_id, tops.type
+         from goods g
+         inner join types t on t.id = g.type_id
+         left join tops on tops.good_id=g.id
     </select>
 
-    <select id="getAllLimit" parameterType="int" resultType="com.msj.entity.Good">
-          select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num from goods g
-        inner join types t on t.id = g.type_id limit #{current},#{pageSize} ;
+    <select id="getAllLimit" parameterType="int" resultMap="goodMap">
+         select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num ,tops.id topId,tops.good_id, tops.type
+         from goods g
+         inner join types t on t.id = g.type_id
+         left join tops on tops.good_id=g.id limit #{current},#{pageSize} ;
     </select>
 
     <select id="getNewGoodLimit" resultType="com.msj.entity.Good">
-          select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num from goods g
+        select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num from goods g
         inner join types t on t.id = g.type_id order by id desc limit #{current},#{pageSize} ;
     </select>
 
@@ -64,7 +73,7 @@
         where t.id=#{typeId};
     </select>
 
-    <select id="findByTypeIdLimit" resultType="good">
+    <select id="findByTypeIdLimit" resultMap="goodMap">
         select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num from goods g
         inner join types t on t.id = g.type_id
         where t.id=#{typeId} limit #{current},#{pageSize};
