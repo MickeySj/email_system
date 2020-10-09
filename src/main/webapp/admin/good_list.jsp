@@ -58,10 +58,10 @@
                 <td><p>${good.sales}</p></td>
                 <td>
                     <p>
-                        <c:if test="${good.top==null}"><a class="btn btn-success topDelete" href="javascript:;"
+                        <c:if test="${good.top!=null}"><a class="btn btn-success topDelete" href="javascript:;"
                                                           type="1"
                                                           goodId="${good.id}" text="加入今日推荐">移出今日推荐</a></c:if>
-                        <c:if test="${good.top!=null}"><a class="btn btn-primary topSave" href="javascript:;"
+                        <c:if test="${good.top==null}"><a class="btn btn-primary topSave" href="javascript:;"
                                                           type="1"
                                                           goodId="${good.id}" text="移出今日推荐">加入今日推荐</a></c:if>
                     </p>

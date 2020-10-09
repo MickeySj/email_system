@@ -39,7 +39,7 @@ public class GoodController {
         return "index/detail";
     }
 
-    @RequestMapping("goodList")
+    @RequestMapping("/goodList")
     public String goodList(Model model, @RequestParam(name = "current", required = false, defaultValue = "1") int current) {
         PageUtils goodPageUtils = new PageUtils();
         goodPageUtils.setCurrent(current);
@@ -53,4 +53,9 @@ public class GoodController {
         return "admin/good_list";
     }
 
+    @RequestMapping("/topList")
+    public String topList(Model model, @RequestParam(name = "current", required = false, defaultValue = "1") int current) {
+        
+        return "admin/good_list";
+    }
 }

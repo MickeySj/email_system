@@ -54,6 +54,14 @@
         inner join types t on t.id = g.type_id order by id desc limit #{current},#{pageSize} ;
     </select>
 
+    <select id="getTopListLimit" parameterType="int" resultMap="goodMap">
+         select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num ,tops.id topId,tops.good_id, tops.type
+         from goods g
+         inner join types t on t.id = g.type_id
+         left join tops on tops.good_id=g.id limit #{current},#{pageSize}
+         where type=1;
+    </select>
+
 
     <select id="findById" parameterType="int" resultMap="goodMap">
         select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num from goods g
