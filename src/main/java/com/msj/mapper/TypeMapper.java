@@ -11,6 +11,7 @@ import java.util.List;
  * @date 2020/9/17 22:55
  */
 public interface TypeMapper {
+    /*根据num值 从小到大(允许负数) 进行排序*/
     List<Type> getAll();
 
     Type findById(@Param("id") int id);

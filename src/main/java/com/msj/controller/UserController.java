@@ -52,7 +52,7 @@ public class UserController {
     @RequestMapping("/login")
     public String login(HttpServletRequest request, User user) {
         String msg = "登陆成功";
-        if (user.getUsername() != null) {
+        if (!user.getUsername().equals("") && !user.getPassword().equals("")) {
             User oUser = service.findByName(user.getUsername());
             int cartCount = cartService.getRecordsTotal(oUser.getId());
             if (oUser != null && MD5Utils.md5Password(user.getPassword()).equals(oUser.getPassword())) {

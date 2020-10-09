@@ -47,8 +47,10 @@ public class GoodController {
         List<Good> goodList = goodService.getAllLimit(goodPageUtils.getCurrent(), goodPageUtils.getPageSize());
         model.addAttribute("goodList", goodList);
 //        model.addAttribute("flag", 3);
+//        model.addAttribute("type", 0);
         model.addAttribute("page", goodPageUtils);
         model.addAttribute("url", "/goods/goodList");
         return "admin/good_list";
     }
+
 }

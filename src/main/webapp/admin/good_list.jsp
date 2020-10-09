@@ -20,7 +20,7 @@
                 <c:if test='${type==0}'>class="active"</c:if> role="presentation"><a href="/goods/goodList">全部商品</a>
         </li>
         <li
-                <c:if test='${type==1}'>class="active"</c:if> role="presentation"><a href="goodList?type=1">今日推荐</a>
+                <c:if test='${type==1}'>class="active"</c:if> role="presentation"><a href="/top/topList">今日推荐</a>
         </li>
     </ul>
 
@@ -58,12 +58,12 @@
                 <td><p>${good.sales}</p></td>
                 <td>
                     <p>
-                        <c:if test="${good.top.type=null}"><a class="btn btn-success topDelete" href="javascript:;"
-                                                              type="1"
-                                                              goodId="${good.id}" text="加入今日推荐">移出今日推荐</a></c:if>
-                        <c:if test="${good.top.type!=null}"><a class="btn btn-primary topSave" href="javascript:;"
-                                                               type="1"
-                                                               goodId="${good.id}" text="移出今日推荐">加入今日推荐</a></c:if>
+                        <c:if test="${good.top==null}"><a class="btn btn-success topDelete" href="javascript:;"
+                                                          type="1"
+                                                          goodId="${good.id}" text="加入今日推荐">移出今日推荐</a></c:if>
+                        <c:if test="${good.top!=null}"><a class="btn btn-primary topSave" href="javascript:;"
+                                                          type="1"
+                                                          goodId="${good.id}" text="移出今日推荐">加入今日推荐</a></c:if>
                     </p>
                     <a class="btn btn-info" href="goodEdit?id=${good.id}">修改</a>
                     <a class="btn btn-danger" href="goodDelete?id=${good.id}">删除</a>
