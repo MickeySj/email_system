@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msj.mapper.ItemMapper">
+    <resultMap id="itemMap" type="item">
+        <result property="id" column="id"></result>
+        <result property="price" column="price"></result>
+        <result property="amount" column="amount"></result>
+        <result property="orderId" column="order_id"></result>
+        <result property="goodId" column="good_id"></result>
+        <association property="good" javaType="good">
+            <id property="id" column="good_id"></id>
+            <result property="cover" column="cover"></result>
+            <result property="name" column="name"></result>
+        </association>
+    </resultMap>
+    <insert id="insert" parameterType="item" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into items(price,amount,order_id,good_id) values (#{price},#{amount},#{orderId},#{goodId});
+    </insert>
+    <update id="update" parameterType="item">
+        update items set price=#{price},amount=#{amount},order_id=#{orderId},good_id=#{goodId} where id=#{id};
+    </update>
+    <delete id="delete" parameterType="int">
+        delete from items where id=#{id};
+    </delete>
+    <select id="getAll" resultMap="itemMap">
+        select i.id,i.price,amount,order_id,good_id,cover,name
+        from items i
+        inner join goods g on i.good_id=g.id
+    </select>
+    <select id="getByOrderId" resultMap="itemMap">
+        select i.id,i.price,amount,order_id,good_id,cover,name
+        from items i
+        inner join goods g on i.good_id=g.id where order_id=#{orderId};
+    </select>
+    <select id="findById" resultMap="itemMap">
+        select i.id,i.price,amount,order_id,good_id,cover,name
+        from items i
+        inner join goods g on i.good_id=g.id where i.id=#{id}
+    </select>
+
+</mapper>
