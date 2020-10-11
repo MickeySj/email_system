@@ -54,8 +54,8 @@ public class UserController {
         String msg = "登陆成功";
         if (!user.getUsername().equals("") && !user.getPassword().equals("")) {
             User oUser = service.findByName(user.getUsername());
-            int cartCount = cartService.getRecordsTotal(oUser.getId());
             if (oUser != null && MD5Utils.md5Password(user.getPassword()).equals(oUser.getPassword())) {
+                int cartCount = cartService.getRecordsTotal(oUser.getId());
 
                 HttpSession session = request.getSession();
                 session.setAttribute("user", oUser);

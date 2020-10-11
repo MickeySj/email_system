@@ -23,6 +23,11 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @RequestMapping("/index")
+    public String index() {
+        return "redirect:admin/login";
+    }
+
     @RequestMapping("/login")
     public String login(Admin admin, Model model, HttpServletRequest request) {
         String msg = "登陆成功";

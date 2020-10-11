@@ -3,6 +3,7 @@ package com.msj.controller;
 import com.msj.entity.Good;
 import com.msj.mapper.TopMapper;
 import com.msj.service.GoodService;
+import com.msj.service.TopService;
 import com.msj.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,13 +23,13 @@ import java.util.List;
 @RequestMapping("/goods")
 public class GoodController {
     @Autowired
-    private TopMapper topMapper;
+    private TopService topService;
     @Autowired
     private GoodService goodService;
 
     @ModelAttribute
     public void todayList(Model model) {
-        List<Good> todayList = topMapper.getTodayList();
+        List<Good> todayList = topService.getTodayList();
         model.addAttribute("todayList", todayList);
     }
 
@@ -39,6 +40,7 @@ public class GoodController {
         return "index/detail";
     }
 
+    /* 商品清单 */
     @RequestMapping("/goodList")
     public String goodList(Model model, @RequestParam(name = "current", required = false, defaultValue = "1") int current) {
         PageUtils goodPageUtils = new PageUtils();
@@ -53,9 +55,15 @@ public class GoodController {
         return "admin/good_list";
     }
 
-    @RequestMapping("/topList")
-    public String topList(Model model, @RequestParam(name = "current", required = false, defaultValue = "1") int current) {
-        
+    /* 商品增加 */
+    @RequestMapping("/goodAdd")
+    public String goodAdd() {
+        return "admin/good_add.jsp";
+    }
+
+    @RequestMapping("/goodSave")
+    public String goodSave() {
         return "admin/good_list";
     }
+
 }

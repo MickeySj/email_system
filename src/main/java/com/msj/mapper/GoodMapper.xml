@@ -19,7 +19,7 @@
         </association>
         <association property="top" javaType="top">
             <id property="id" column="topId"></id>
-            <result property="goodId" column="id"></result>
+            <result property="goodId" column="t_good_id"></result>
             <result property="type" column="type"></result>
         </association>
     </resultMap>
@@ -29,7 +29,7 @@
     </insert>
 
     <update id="update" parameterType="good">
-        update goods set cover =#{cover},name=#{name},intro=#{intro},spec=#{spec},price=#{price},stock=#{stock},sales=#{sales},content=#{content},type_id=#{typeId} where id=#{id};
+        update goods set cover =#{cover},name=#{name},intro=#{intro},spec=#{spec},price=#{price},stock=#{stock},sales=#{sales},content=#{content},type_id=#{type.id} where id=#{id};
     </update>
     <delete id="delete" parameterType="int">
         delete from goods where id=#{id};
@@ -43,7 +43,7 @@
     </select>
 
     <select id="getAllLimit" parameterType="int" resultMap="goodMap">
-         select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num ,tops.id topId,tops.good_id, tops.type
+         select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num ,tops.id topId,tops.good_id t_good_id, tops.type
          from goods g
          inner join types t on t.id = g.type_id
          left join tops on tops.good_id=g.id limit #{current},#{pageSize} ;
@@ -52,14 +52,6 @@
     <select id="getNewGoodLimit" resultType="com.msj.entity.Good">
         select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num from goods g
         inner join types t on t.id = g.type_id order by id desc limit #{current},#{pageSize} ;
-    </select>
-
-    <select id="getTopListLimit" parameterType="int" resultMap="goodMap">
-         select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num ,tops.id topId,tops.good_id, tops.type
-         from goods g
-         inner join types t on t.id = g.type_id
-         left join tops on tops.good_id=g.id limit #{current},#{pageSize}
-         where type=1;
     </select>
 
 

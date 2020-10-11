@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.DigestUtils;
 
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,13 +39,13 @@ public class TestMapper {
 
     @Test
     public void getAllClasses() {
-        List<Good> goodList = goodMapper.getAllLimit(1, 10);
-        for (Good good : goodList) {
-            if(good.getTop().getType()==null)
-            {
-                System.out.println(good);
-            }
-        }
+        Good good = goodMapper.findById(1);
+        good.setSales(12);
+        System.out.println(goodMapper.update(good));
+    }
+    @Test
+    public void test(){
+        System.out.println(String.valueOf(null));
     }
 
     @Test

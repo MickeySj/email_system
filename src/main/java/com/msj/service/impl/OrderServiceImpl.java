@@ -1,16 +1,16 @@
 package com.msj.service.impl;
 
-import com.msj.entity.Cart;
-import com.msj.entity.Item;
-import com.msj.entity.Order;
-import com.msj.entity.User;
+import com.msj.config.MyException;
+import com.msj.entity.*;
 import com.msj.mapper.CartMapper;
+import com.msj.mapper.GoodMapper;
 import com.msj.mapper.ItemMapper;
 import com.msj.mapper.OrderMapper;
 import com.msj.service.OrderService;
 import com.msj.util.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +21,8 @@ import java.util.List;
  */
 @Service
 public class OrderServiceImpl implements OrderService {
+    @Autowired
+    private GoodMapper goodMapper;
     @Autowired
     private OrderMapper orderMapper;
     @Autowired
@@ -57,6 +59,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public int insert(User user) {
         /*生成订单*/
         Order Norder = new Order();
@@ -94,9 +97,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+//    @Transactional
     public int update(Order order) {
+        /*根据支付界面用户信息对订单信息进行修改*/
         Order Oorder = orderMapper.findById(order.getId());
         System.out.println("Oorder=" + Oorder);
+        List<Item> itemList = itemMapper.getByOrderId(Oorder.getId());
+        for (Item item : itemList) {
+            Good good = goodMapper.findById(item.getGoodId());
+            good.setStock(good.getStock() - item.getAmount());
+            good.setSales(good.getSales() + item.getAmount());
+            if (good.getStock() >= 0) {
+                goodMapper.update(good);
+            } else {
+                return -1;
+            }
+        }
+
         Oorder.setStatus(STATUS_PAYED);
         Oorder.setName(order.getName() == null ? Oorder.getName() : order.getName());
         Oorder.setPhone(order.getPhone() == null ? Oorder.getPhone() : order.getPhone());

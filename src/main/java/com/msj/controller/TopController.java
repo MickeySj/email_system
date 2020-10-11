@@ -21,11 +21,11 @@ public class TopController {
 
     @RequestMapping("/topList")
     public String getTopList(Model model, @RequestParam(name = "current", required = false, defaultValue = "1") int current) {
-        PageUtils goodPageUtils = new PageUtils();
-        goodPageUtils.setCurrent(current);
+        PageUtils goodPageUtils = new PageUtils(current, 6);
+//        goodPageUtils.setCurrent(current);
         goodPageUtils.setRecordTotal(topService.getRecordsTotal());
         model.addAttribute("type", 1);
-        model.addAttribute("goodList", topService.getTodayList());
+        model.addAttribute("goodList", topService.getTodayListLimit(goodPageUtils.getCurrent(), goodPageUtils.getPageSize()));
         model.addAttribute("page", goodPageUtils);
         model.addAttribute("url", "/top/topList");
         return "admin/good_list";

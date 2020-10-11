@@ -32,12 +32,16 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Integer getCartTotal(int userId) {
-        return cartMapper.getCartTotal(userId);
+        return cartMapper.getCartTotal(userId) == null ? 0 : cartMapper.getCartTotal(userId);
     }
 
     @Override
     public Integer getRecordsTotal(int userId) {
-        return cartMapper.getRecordsTotal(userId);
+        Integer recordsTotal = cartMapper.getRecordsTotal(userId);
+        if (recordsTotal != null && recordsTotal >= 0) {
+            return recordsTotal;
+        }
+        return 0;
     }
 
     @Override
@@ -54,12 +58,14 @@ public class CartServiceImpl implements CartService {
         Integer goodId = cart.getGoodId();
         for (Cart oCart : cartList) {
             if (oCart.getGoodId().equals(goodId)) {
-                oCart.setAmount(cart.getAmount() + 1);
+                System.out.println("cart.getAmount()=" + cart.getAmount());
+                oCart.setAmount(oCart.getAmount() + 1);
+                System.out.println("oCart=" + oCart);
                 cartMapper.update(oCart);
                 return "1";
             }
         }
-        /*购物车中商品不存在的情况 返回插入状态*/
+        /*购物车中商品不存在的情况 返回插入状态 1成功 2失败*/
         int i = cartMapper.insert(cart);
         if (i > 0) {
             return "1";

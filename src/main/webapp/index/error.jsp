@@ -41,7 +41,7 @@ body {
 <body style="background: #FFF;">
 
 <div class="system-message" id="main">
-	<img src="img/error.png"/>
+	<img src="../index/img/error.png"/>
 	<div class="cont"><p>${msg}</p></div>
 </div>
 

@@ -53,9 +53,14 @@ public class OrderController {
 
     /*订单支付*/
     @RequestMapping("/orderPay")
-    public String orderPay(Order order) {
-        orderService.update(order);
+    public String orderPay(Order order, Model model) {
+        int flag = orderService.update(order);
+        if (flag == -1) {
+            model.addAttribute("msg", "库存不足");
+            return "index/error";
+        }
         return "index/payok";
     }
+
 }
 

@@ -16,7 +16,6 @@ public interface TopService {
 
     List<Good> getTodayList();
 
-
     List<Good> getTodayListLimit(@Param("current") int current, @Param("pageSize") int pageSize);
 
     int getRecordsTotal();

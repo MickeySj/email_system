@@ -11,7 +11,7 @@
 
     <%@include file="header.jsp" %>
 
-    <div class="text-right"><a class="btn btn-warning" href="goodAdd">添加商品</a></div>
+    <div class="text-right"><a class="btn btn-warning" href="/goods/goodAdd">添加商品</a></div>
 
     <br>
 
@@ -79,7 +79,7 @@
         <nav aria-label="Page navigation" style="text-align: center">
             <ul class="pagination">
                 <li class="current">
-                    <a href="${url}?current=1<c:if test="${type!=null}">&id=${type.id}</c:if>"
+                    <a href="${url}?current=1"
                        aria-label="Previous">
                         <span aria-hidden="true">首页</span>
                     </a>
@@ -87,11 +87,11 @@
                 <c:forEach begin="1" end="${page.pageTotal}" var="page">
                     <li
                             class="current"><a
-                            href="${url}?current=${page}<c:if test="${type!=null}">&id=${type.id}</c:if>">${page}</a>
+                            href="${url}?current=${page}">${page}</a>
                     </li>
                 </c:forEach>
                 <li class="current">
-                    <a href="${url}?current=${page.pageTotal}<c:if test="${type!=null}">&id=${type.id}</c:if>"
+                    <a href="${url}?current=${page.pageTotal}"
                        aria-label="Next">
                         <span aria-hidden="true">尾页</span>
                     </a>

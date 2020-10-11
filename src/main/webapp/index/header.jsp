@@ -39,7 +39,7 @@
                     <a href="/index/register">注册</a>
                 </div>
                 <div class="sinup">
-                    <a target="_blank" href="../admin.jsp">后台管理</a>
+                    <a target="_blank" href="/admin/index">后台管理</a>
                 </div>
             </c:if>
 

@@ -38,8 +38,8 @@ public class CartController {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 //        System.out.println("userID=" + user.getId());
-        List<Cart> cartList = cartService.getAll(user.getId());
-        model.addAttribute("cartList", cartList);
+
+        model.addAttribute("cartList", cartService.getAll(user.getId()));
         model.addAttribute("cartTotal", cartService.getCartTotal(user.getId()));
         return "index/cart";
     }
@@ -110,8 +110,7 @@ public class CartController {
     public String cartTotal(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        int cartTotal = cartService.getCartTotal(user.getId());
-        return String.valueOf(cartTotal);
+        return String.valueOf(cartService.getCartTotal(user.getId()));
     }
 
 
