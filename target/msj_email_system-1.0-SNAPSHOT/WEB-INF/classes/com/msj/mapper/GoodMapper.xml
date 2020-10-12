@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msj.mapper.GoodMapper">
+    <resultMap id="goodMap" type="good">
+        <id property="id" column="id"></id>
+        <result property="cover" column="cover"></result>
+        <result property="name" column="name"></result>
+        <result property="intro" column="intro"></result>
+        <result property="spec" column="spec"></result>
+        <result property="price" column="price"></result>
+        <result property="stock" column="stock"></result>
+        <result property="sales" column="sales"></result>
+        <result property="content" column="content"></result>
+        <association property="type" javaType="type">
+            <id property="id" column="type_id"></id>
+            <result property="name" column="type_name"></result>
+            <result property="num" column="num"></result>
+        </association>
+        <association property="top" javaType="top">
+            <id property="id" column="topId"></id>
+            <result property="goodId" column="t_good_id"></result>
+            <result property="type" column="type"></result>
+        </association>
+    </resultMap>
+
+    <insert id="insert" parameterType="good">
+        insert into goods(cover,name,intro,spec,price,stock,sales,content,type_id) values (#{cover},#{name},#{intro},#{spec},#{price},#{stock},#{sales},#{content},#{type.id});
+    </insert>
+
+    <update id="update" parameterType="good">
+        update goods set cover =#{cover},name=#{name},intro=#{intro},spec=#{spec},price=#{price},stock=#{stock},sales=#{sales},content=#{content},type_id=#{type.id} where id=#{id};
+    </update>
+    <delete id="delete" parameterType="int">
+        delete from goods where id=#{id};
+    </delete>
+
+    <select id="getAll" resultMap="goodMap">
+         select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num ,tops.id topId,tops.good_id, tops.type
+         from goods g
+         inner join types t on t.id = g.type_id
+         left join tops on tops.good_id=g.id
+    </select>
+
+    <select id="getAllLimit" parameterType="int" resultMap="goodMap">
+         select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num ,tops.id topId,tops.good_id t_good_id, tops.type
+         from goods g
+         inner join types t on t.id = g.type_id
+         left join tops on tops.good_id=g.id limit #{current},#{pageSize} ;
+    </select>
+
+    <select id="getNewGoodLimit" resultType="com.msj.entity.Good">
+        select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num from goods g
+        inner join types t on t.id = g.type_id order by id desc limit #{current},#{pageSize} ;
+    </select>
+
+
+    <select id="findById" parameterType="int" resultMap="goodMap">
+        select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num from goods g
+        inner join types t on t.id = g.type_id
+        where g.id=#{id};
+    </select>
+
+    <select id="findByName" parameterType="java.lang.String" resultMap="goodMap">
+        select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num from goods g
+        inner join types t on t.id = g.type_id
+        where g.name =#{name};
+    </select>
+
+    <select id="findByTypeId" parameterType="int" resultMap="goodMap">
+        select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num from goods g
+        inner join types t on t.id = g.type_id
+        where t.id=#{typeId};
+    </select>
+
+    <select id="findByTypeIdLimit" resultMap="goodMap">
+        select g.id,cover,g.name,intro,spec,price,stock,sales,content,type_id,t.name type_name,num from goods g
+        inner join types t on t.id = g.type_id
+        where t.id=#{typeId} limit #{current},#{pageSize};
+    </select>
+
+    <select id="findBySearch" parameterType="java.lang.String" resultType="good">
+        select * from goods where name like CONCAT(CONCAT('%', #{name}), '%');
+    </select>
+    <select id="findBySearchLimit" resultType="good">
+         select * from goods where name like CONCAT(CONCAT('%', #{name}), '%') limit #{current},#{pageSize};
+    </select>
+
+</mapper>
