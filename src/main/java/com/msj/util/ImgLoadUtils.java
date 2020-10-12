@@ -51,7 +51,7 @@ public class ImgLoadUtils {
             fileOutputStream.write(FileUtils.readFileToByteArray(cacheFile));
             fileOutputStream.flush();
             fileOutputStream.close();
-            src = ("/img/" + fileName).trim();
+            src = ("../upload/" + fileName).trim();
             return src;
         }
         return src;

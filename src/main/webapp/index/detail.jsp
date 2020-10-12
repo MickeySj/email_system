@@ -18,7 +18,7 @@
 
     <!-- 面包屑 -->
     <div id="mnav" style="background: #f6f6f6;border: 1px solid #eee;">
-        <a href="type?id=${good.type.id}"><span style="color:#ff852b;">${good.type.name}</span></a>
+        <a href="/index/type?id=${good.type.id}"><span style="color:#ff852b;">${good.type.name}</span></a>
         <i class="iconfont icon-arrow-left"></i>
         <span>${good.name}</span>
     </div>
@@ -85,9 +85,9 @@
                 <div class="goodspage">
                     <c:forEach items="${todayList}" var="good">
                         <div class="goods">
-                            <a href="detail?id=${good.id}"><img src="../index/${good.cover}"/></a>
+                            <a href="/goods/detail?id=${good.id}"><img src="../index/${good.cover}"/></a>
                             <p class="goodsprice">￥<span>${good.price}</span></p>
-                            <a href="detail?id=${good.id}"><p class="goodsname">${good.name}</p></a>
+                            <a href="/goods/detail?id=${good.id}"><p class="goodsname">${good.name}</p></a>
                         </div>
                     </c:forEach>
                 </div>
@@ -120,7 +120,7 @@
 <jsp:include page="footer.jsp"/>
 
 </body>
-<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="../index/js/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     //数量增加或减少按钮功能实现
     $("#gcut").on("click", function () {

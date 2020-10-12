@@ -4,6 +4,8 @@ import com.msj.entity.Good;
 import com.msj.mapper.TopMapper;
 import com.msj.service.GoodService;
 import com.msj.service.TopService;
+import com.msj.service.TypeService;
+import com.msj.util.ImgLoadUtils;
 import com.msj.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,6 +32,8 @@ public class GoodController {
     private TopService topService;
     @Autowired
     private GoodService goodService;
+    @Autowired
+    private TypeService typeService;
 
     @ModelAttribute
     public void todayList(Model model) {
@@ -57,13 +65,22 @@ public class GoodController {
 
     /* 商品增加 */
     @RequestMapping("/goodAdd")
-    public String goodAdd() {
-        return "admin/good_add.jsp";
+    public String goodAdd(Model model) {
+        model.addAttribute("typeList", typeService.getAll());
+        return "admin/good_add";
     }
 
     @RequestMapping("/goodSave")
-    public String goodSave() {
-        return "admin/good_list";
+    public String goodSave(Good good, int typeId, MultipartFile file, HttpServletRequest request) throws IOException {
+        System.out.println(file);
+        System.out.println(good);
+        System.out.println(typeId);
+        String src = ImgLoadUtils.upLoad(request, file);
+        good.setCover(src);
+        good.setSales(0);
+        good.setType(typeService.findById(typeId));
+        int insert = goodService.insert(good);
+        return "redirect:/goods/goodList";
     }
 
 }

@@ -47,9 +47,9 @@
         <c:forEach var="good" items="${goodList}">
             <tr>
                 <td><p>${good.id}</p></td>
-                <td><p><a href="../index/detail?id=${good.id}" target="_blank"><img src="../index/${good.cover}"
+                <td><p><a href="../goods/detail?id=${good.id}" target="_blank"><img src="../index/${good.cover}"
                                                                                     width="100px"></a></p></td>
-                <td><p><a href="../index/detail?id=${good.id}" target="_blank">${good.name}</a></p></td>
+                <td><p><a href="../goods/detail?id=${good.id}" target="_blank">${good.name}</a></p></td>
                 <td><p>${good.intro}</p></td>
                 <td><p>${good.spec}</p></td>
                 <td><p>${good.price}</p></td>

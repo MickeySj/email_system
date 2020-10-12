@@ -25,7 +25,7 @@ public class AdminController {
 
     @RequestMapping("/index")
     public String index() {
-        return "redirect:admin/login";
+        return "redirect:/admin/login";
     }
 
     @RequestMapping("/login")

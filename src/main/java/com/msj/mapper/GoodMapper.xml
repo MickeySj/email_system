@@ -25,7 +25,7 @@
     </resultMap>
 
     <insert id="insert" parameterType="good">
-        insert into goods(cover,name,intro,spec,price,stock,sales,content,type_id) values (#{cover},#{name},#{intro},#{spec},#{price},#{stock},#{sales},#{content},#{typeId});
+        insert into goods(cover,name,intro,spec,price,stock,sales,content,type_id) values (#{cover},#{name},#{intro},#{spec},#{price},#{stock},#{sales},#{content},#{type.id});
     </insert>
 
     <update id="update" parameterType="good">
