@@ -44,8 +44,8 @@ public class ImgLoadUtils {
             }
             img.transferTo(cacheFile);
 
-            String path = "E:\\IdeaWorkSpace\\msj_email_system\\src\\main\\webapp\\upload\\";
-            File file = new File(path, fileName);
+            String realPath = request.getServletContext().getRealPath("upload");
+            File file = new File(realPath, fileName);
             System.out.println("file.getPath()=" + file.getPath());
             FileOutputStream fileOutputStream = new FileOutputStream(file.getPath());
             fileOutputStream.write(FileUtils.readFileToByteArray(cacheFile));

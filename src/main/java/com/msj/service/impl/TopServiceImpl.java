@@ -55,6 +55,12 @@ public class TopServiceImpl implements TopService {
     }
 
     @Override
+    public int deleteByGoodAndType(int goodId, int type) {
+        return mapper.deleteByGoodAndType(goodId, type);
+    }
+
+
+    @Override
     public int update(Top top) {
         return mapper.update(top);
     }

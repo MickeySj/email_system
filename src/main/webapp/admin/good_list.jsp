@@ -106,30 +106,36 @@
 <script src="../admin/js/bootstrap.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function () {
+        /* 今日推荐的添加 */
         $(document).on("click", ".topSave", function () {
             var type = $(this).attr("type");
             var goodId = $(this).attr("goodId");
             var text = $(this).attr("text");
             var old = $(this).text();
             var obj = this;
-            $.post("topSave.action", {"goodId": goodId, "type": type}, function (data) {
-                if (data == "ok") {
+            $.post("/top/topSave", {"goodId": goodId, "type": type}, function (data) {
+                if (data >= 0) {
                     $(obj).text(text).attr("class", "btn btn-success topDelete").attr("text", old);
                 } else {
                     alert("操作失败!");
                 }
             }, "text");
         });
+        /* 今日推荐的删除 */
         $(document).on("click", ".topDelete", function () {
             var type = $(this).attr("type");
             var goodId = $(this).attr("goodId");
             var text = $(this).attr("text");
             var old = $(this).text();
             var obj = this;
-            $.post("topDelete.action", {"goodId": goodId, "type": type}, function (data) {
-                if (data == "ok") {
+            $.post("/top/topDelete", {"goodId": goodId, "type": type}, function (data) {
+                alert("data=" + data);
+                if (data >= 0) {
+                    alert("data=" + data);
+
                     $(obj).text(text).attr("class", "btn btn-primary topSave").attr("text", old);
                 } else {
+                    alert("data嘻嘻=" + data);
                     alert("操作失败!");
                 }
             }, "text");

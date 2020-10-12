@@ -27,5 +27,7 @@ public interface TopMapper {
 
     int delete(@Param("id") int id);
 
+    int deleteByGoodAndType(@Param("goodId") int goodId, @Param("type") int type);
+
     int update(Top top);
 }

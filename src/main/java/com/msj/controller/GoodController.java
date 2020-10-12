@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,9 +73,9 @@ public class GoodController {
 
     @RequestMapping("/goodSave")
     public String goodSave(Good good, int typeId, MultipartFile file, HttpServletRequest request) throws IOException {
-        System.out.println(file);
+/*        System.out.println(file);
         System.out.println(good);
-        System.out.println(typeId);
+        System.out.println(typeId);*/
         String src = ImgLoadUtils.upLoad(request, file);
         good.setCover(src);
         good.setSales(0);
@@ -83,4 +84,22 @@ public class GoodController {
         return "redirect:/goods/goodList";
     }
 
+    /* 商品修改 */
+    @RequestMapping("/goodEdit")
+    public String goodEdit(@RequestParam("id") int id, Model model) {
+        System.out.println("id=" + id);
+        model.addAttribute("good", goodService.findById(id));
+        model.addAttribute("typeList", typeService.getAll());
+        return "admin/good_edit";
+    }
+
+    @RequestMapping("/goodUpdate")
+    public String goodUpdate(Good good, int typeId, MultipartFile file, HttpServletRequest request) throws IOException {
+        String src = ImgLoadUtils.upLoad(request, file);
+        good.setCover(src);
+        good.setType(typeService.findById(typeId));
+        goodService.update(good);
+        System.out.println("good=" + good);
+        return "redirect:/goods/goodList";
+    }
 }

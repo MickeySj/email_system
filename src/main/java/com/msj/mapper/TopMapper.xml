@@ -12,6 +12,9 @@
     <delete id="delete" parameterType="int">
         delete from tops where id=#{id};
     </delete>
+    <delete id="deleteByGoodAndType">
+        delete from tops where good_id=#{goodId} and type=#{type};
+    </delete>
 
     <select id="getAll" resultType="top">
         select * from tops;
@@ -29,6 +32,7 @@
          inner join types t on t.id = g.type_id
          left join tops on tops.good_id=g.id
          where type=1
+         order by t.id desc
          limit #{current},#{pageSize};
     </select>
     <select id="getRecordsTotal" resultType="int">

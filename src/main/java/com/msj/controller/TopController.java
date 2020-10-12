@@ -1,5 +1,6 @@
 package com.msj.controller;
 
+import com.msj.entity.Top;
 import com.msj.service.TopService;
 import com.msj.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author sj
@@ -31,4 +33,17 @@ public class TopController {
         return "admin/good_list";
     }
 
+    /* 今日推荐的添加 */
+    @RequestMapping("/topSave")
+    @ResponseBody
+    public String topSave(Top top) {
+        return String.valueOf(topService.insert(top));
+    }
+
+    /* 今日推荐的删除 */
+    @RequestMapping("/topDelete")
+    @ResponseBody
+    public String topDelete(Top top) {
+        return String.valueOf(topService.deleteByGoodAndType(top.getGoodId(), top.getType()));
+    }
 }

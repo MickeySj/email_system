@@ -142,6 +142,7 @@
     });
 
     // 更新购物车显示数量 修改为ajax
+    // $(
     function updateCartnum(num) {
         $.get("/cart/getRecordsTotal", function (data) {
             if ($(".cartnum").length > 0) {
@@ -151,6 +152,8 @@
             }
         });
     }
+
+    // );
 </script>
 </body>
 </html>
