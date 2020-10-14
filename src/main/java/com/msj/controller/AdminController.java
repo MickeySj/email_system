@@ -1,7 +1,6 @@
 package com.msj.controller;
 
 import com.msj.entity.Admin;
-import com.msj.entity.User;
 import com.msj.service.AdminService;
 import com.msj.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ public class AdminController {
 
     @RequestMapping("/login")
     public String login(Admin admin, Model model, HttpServletRequest request) {
-        String msg = "登陆成功";
         if (admin.getUsername() != null) {
             Admin oAdmin = adminService.findByName(admin.getUsername());
             if (oAdmin != null && MD5Utils.md5Password(admin.getPassword()).equals(oAdmin.getPassword())) {
@@ -39,10 +37,12 @@ public class AdminController {
                 session.setAttribute("admin", oAdmin);
                 request.setAttribute("msg", "登陆成功");
                 return "admin/index";
+            } else {
+                request.setAttribute("msg", "登录失败");
+                return "admin/login";
             }
         }
-        msg = "登录失败";
-        request.setAttribute("msg", msg);
+        request.setAttribute("msg", "请输入账户和密码");
         return "admin/login";
     }
 
@@ -68,8 +68,20 @@ public class AdminController {
 
     /*重置密码*/
     @RequestMapping("/adminRe")
-    public String adminRe(@RequestParam("id") int id) {
-        return "redirect:/admin/adminList";
+    public String adminRe(@RequestParam("id") int id, Model model) {
+        model.addAttribute("admin", adminService.findById(id));
+        return "admin/admin_reset";
+    }
+
+    @RequestMapping("adminReset")
+    public String adminReset(Model model, Admin admin) {
+        Admin oAdmin = adminService.findById(admin.getId());
+        oAdmin.setPassword(MD5Utils.md5Password(admin.getPassword()));
+//        System.out.println("admin=" + admin);
+        adminService.update(oAdmin);
+        model.addAttribute("admin", oAdmin);
+        model.addAttribute("msg", "成功重置密码");
+        return "admin/admin_reset";
     }
 
     /*删除管理员*/
@@ -77,6 +89,12 @@ public class AdminController {
     public String adminDelete(@RequestParam("id") int id) {
         adminService.delete(id);
         return "redirect:/admin/adminList";
+    }
 
+    /* 退出登录 */
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().removeAttribute("admin");
+        return "redirect:/admin/login";
     }
 }

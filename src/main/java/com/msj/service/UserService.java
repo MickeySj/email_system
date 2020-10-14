@@ -23,4 +23,7 @@ public interface UserService {
     int delete(@Param("id") int id);
 
     int update(User user);
+
+    int updatePassWord(User user);
+
 }

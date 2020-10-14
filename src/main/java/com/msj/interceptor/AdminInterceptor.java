@@ -25,7 +25,7 @@ public class AdminInterceptor extends SystemInterceptor {
         if (Objects.nonNull(admin) && !String.valueOf(admin).trim().isEmpty()) {
             return true;
         }
-        response.sendRedirect("/login.jsp");
+        response.sendRedirect("/admin/login");
         return false;
     }
 }

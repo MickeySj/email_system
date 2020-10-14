@@ -27,4 +27,8 @@
         update users set username=#{username},password=#{password},name=#{name},phone=#{phone},address=#{address} where id=#{id};
     </update>
 
+    <update id="updatePassWord" parameterType="user">
+        update users set password=#{password} where id=#{id};
+    </update>
+
 </mapper>

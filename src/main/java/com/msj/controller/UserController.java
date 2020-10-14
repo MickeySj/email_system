@@ -6,6 +6,7 @@ import com.msj.service.UserService;
 import com.msj.service.impl.UserServiceImpl;
 import com.msj.util.MD5Utils;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +44,6 @@ public class UserController {
                 return "index/register";
             }
             user.setPassword(MD5Utils.md5Password(user.getPassword()));
-            msg = "注册成功";
             int flag = service.insert(user);
         }
         return "index/register";
@@ -68,18 +68,18 @@ public class UserController {
         return "forward:/index/login";
     }
 
-    @RequestMapping("address")
+    @RequestMapping("/address")
     public String address() {
         return "index/address";
     }
 
-    @RequestMapping("password")
+    @RequestMapping("/password")
     public String password() {
         return "index/password";
     }
 
     //    更新地址 并且在session中重写
-    @RequestMapping("addressUpdate")
+    @RequestMapping("/addressUpdate")
     public String addressUpdate(HttpServletRequest request, User user) {
         HttpSession session = request.getSession();
         User nUser = (User) session.getAttribute("user");
@@ -93,7 +93,7 @@ public class UserController {
     }
 
     //        修改密码 并在session中重新写入
-    @RequestMapping("passwordUpdate")
+    @RequestMapping("/passwordUpdate")
     public String passwordUpdate(HttpServletRequest request, @RequestParam("password") String password, @RequestParam("passwordNew") String passwordNew) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -114,5 +114,71 @@ public class UserController {
         session.removeAttribute("user");
         session.removeAttribute("cartCount");
         return "redirect:/index/index";
+    }
+
+    /* 后台对于用户账户的管理 */
+    @RequestMapping("/userList")
+    public String userList(Model model) {
+        model.addAttribute("userList", service.getAll());
+        return "admin/user_list";
+    }
+
+    /* 用户添加 */
+    @RequestMapping("/userAdd")
+    public String userAdd() {
+        return "admin/user_add";
+    }
+
+    @RequestMapping("/userSave")
+    public String userSave(User user, Model model) {
+        if (user != null) {
+            if (service.findByName(user.getUsername()) != null) {
+                model.addAttribute("msg", "用户已存在");
+                return "admin/user_add";
+            }
+            user.setPassword(MD5Utils.md5Password(user.getPassword()));
+            int flag = service.insert(user);
+        }
+        model.addAttribute("msg", "用户添加成功");
+        return "admin/user_add";
+    }
+
+    /*用户密码重置*/
+    @RequestMapping("/userRe")
+    public String userRe(@RequestParam("id") int id, Model model) {
+        model.addAttribute("user", service.findById(id));
+        return "admin/user_reset";
+    }
+
+    @RequestMapping("/userReset")
+    public String userReset(User user, Model model) {
+        user.setPassword(MD5Utils.md5Password(user.getPassword()));
+        service.updatePassWord(user);
+        model.addAttribute("user", service.findById(user.getId()));
+        model.addAttribute("msg", "用户密码成功重置");
+        return "admin/user_reset";
+    }
+
+    /* 用户修改 */
+    @RequestMapping("/userEdit")
+    public String userEdit(@RequestParam("id") int id, Model model) {
+        model.addAttribute("user", service.findById(id));
+        return "admin/user_edit";
+    }
+
+    @RequestMapping("/userUpdate")
+    public String userUpdate(User user, Model model) {
+        user.setPassword(service.findById(user.getId()).getPassword());
+        service.update(user);
+        model.addAttribute("msg", "用户信息修改成功");
+        model.addAttribute("admin", service.findById(user.getId()));
+        return "admin/user_edit";
+    }
+
+    /*删除*/
+    @RequestMapping("/userDelete")
+    public String userDelete(@RequestParam("id") int id) {
+        service.delete(id);
+        return "redirect:/user/userList";
     }
 }

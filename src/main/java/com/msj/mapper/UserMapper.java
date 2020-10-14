@@ -26,4 +26,6 @@ public interface UserMapper {
 
     int update(User user);
 
+    int updatePassWord(User user);
+
 }

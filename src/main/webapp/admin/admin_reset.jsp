@@ -17,7 +17,7 @@
 		<div class="alert alert-success" role="alert">${msg}</div>
 	</c:if>
 	
-	<form class="form-horizontal" action="adminReset" method="post">
+	<form class="form-horizontal" action="/admin/adminReset" method="post">
 		<input type="hidden" name="id" value="${admin.id}">
 		<div class="form-group">
 			<label for="input_name" class="col-sm-1 control-label">用户名</label>
