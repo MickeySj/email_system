@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <!-- 自动扫描包 -->
+    <context:component-scan base-package="com.msj"/>
+    <!-- 放行静态资源 -->
+    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+    <!-- 配置信息转换器 -->
+    <mvc:annotation-driven conversion-service="csfb">
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/html;charset=utf-8"></property>
+            </bean>
+            <!-- json转换器 -->
+            <!--            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"></bean>-->
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <!-- 配置自定义转换工厂 -->
+    <bean id="csfb" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.msj.converter.DateConverter"></bean>
+            </list>
+        </property>
+    </bean>
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <!-- 前端拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/index/**"/>
+            <mvc:mapping path="/cart/**"/>
+            <bean class="com.msj.interceptor.IndexInterceptor"></bean>
+        </mvc:interceptor>
+        <!-- 后端拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/**"/>
+            <bean class="com.msj.interceptor.AdminInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    <!-- 配置视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+    <!-- 文件上传解析器 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+</beans>
