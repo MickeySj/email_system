@@ -1,5 +1,6 @@
 package com.msj.controller;
 
+import com.msj.config.MyException;
 import com.msj.entity.Order;
 import com.msj.entity.User;
 import com.msj.service.ItemService;
@@ -53,7 +54,7 @@ public class OrderController {
 
     /*订单支付*/
     @RequestMapping("/orderPay")
-    public String orderPay(Order order, Model model) {
+    public String orderPay(Order order, Model model) throws MyException {
         int flag = orderService.update(order);
         if (flag == -1) {
             model.addAttribute("msg", "库存不足");

@@ -97,8 +97,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-//    @Transactional
-    public int update(Order order) {
+    @Transactional
+    public int update(Order order) throws MyException {
         /*根据支付界面用户信息对订单信息进行修改*/
         Order Oorder = orderMapper.findById(order.getId());
         System.out.println("Oorder=" + Oorder);
@@ -110,7 +110,8 @@ public class OrderServiceImpl implements OrderService {
             if (good.getStock() >= 0) {
                 goodMapper.update(good);
             } else {
-                return -1;
+//                return -1;
+                throw new MyException("商品[" + good.getName().substring(0, good.getName().indexOf(" ")) + "]库存不足");
             }
         }
 

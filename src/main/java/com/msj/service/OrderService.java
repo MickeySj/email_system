@@ -1,5 +1,6 @@
 package com.msj.service;
 
+import com.msj.config.MyException;
 import com.msj.entity.Order;
 import com.msj.entity.User;
 import org.apache.ibatis.annotations.Param;
@@ -22,5 +23,5 @@ public interface OrderService {
 
     int delete(@Param("id") int id);
 
-    int update(Order order);
+    int update(Order order) throws MyException;
 }

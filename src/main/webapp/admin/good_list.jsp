@@ -65,8 +65,8 @@
                                                           type="1"
                                                           goodId="${good.id}" text="移出今日推荐">加入今日推荐</a></c:if>
                     </p>
-                    <a class="btn btn-info" href="goodEdit?id=${good.id}">修改</a>
-                    <a class="btn btn-danger" href="goodDelete?id=${good.id}">删除</a>
+                    <a class="btn btn-info" href="/goods/goodEdit?id=${good.id}">修改</a>
+                    <a class="btn btn-danger" href="/goods/goodDelete?id=${good.id}">删除</a>
                 </td>
             </tr>
         </c:forEach>

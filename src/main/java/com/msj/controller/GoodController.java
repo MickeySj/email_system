@@ -102,4 +102,11 @@ public class GoodController {
         System.out.println("good=" + good);
         return "redirect:/goods/goodList";
     }
+
+    /* 商品删除 */
+    @RequestMapping("/goodDelete")
+    public String goodDelete(@RequestParam("id") int id) {
+        goodService.delete(id);
+        return "redirect:/goods/goodList";
+    }
 }

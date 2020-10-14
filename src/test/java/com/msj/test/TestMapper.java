@@ -43,9 +43,11 @@ public class TestMapper {
         good.setSales(12);
         System.out.println(goodMapper.update(good));
     }
+
     @Test
-    public void test(){
-        System.out.println(String.valueOf(null));
+    public void test() {
+        String str = "嘻嘻 哈哈";
+        System.out.println(str.substring(0, str.indexOf(" ")));
     }
 
     @Test
