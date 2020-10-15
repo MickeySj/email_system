@@ -1,5 +1,6 @@
 package com.msj.test;
 
+import com.msj.controller.OrderController;
 import com.msj.entity.Cart;
 import com.msj.entity.Good;
 import com.msj.entity.Order;
@@ -33,15 +34,11 @@ import java.util.List;
 @ContextConfiguration({"classpath:spring-mybatis.xml", "classpath:spring-mvc.xml"})
 public class TestMapper {
     @Autowired
-    GoodMapper goodMapper;
-    @Autowired
-    TopMapper topMapper;
+    OrderService orderService;
 
     @Test
     public void getAllClasses() {
-        Good good = goodMapper.findById(1);
-        good.setSales(12);
-        System.out.println(goodMapper.update(good));
+        System.out.println(orderService.getAll());
     }
 
     @Test

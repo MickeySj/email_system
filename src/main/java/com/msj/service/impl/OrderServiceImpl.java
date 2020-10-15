@@ -2,10 +2,7 @@ package com.msj.service.impl;
 
 import com.msj.config.MyException;
 import com.msj.entity.*;
-import com.msj.mapper.CartMapper;
-import com.msj.mapper.GoodMapper;
-import com.msj.mapper.ItemMapper;
-import com.msj.mapper.OrderMapper;
+import com.msj.mapper.*;
 import com.msj.service.OrderService;
 import com.msj.util.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +26,8 @@ public class OrderServiceImpl implements OrderService {
     private ItemMapper itemMapper;
     @Autowired
     private CartMapper cartMapper;
+    @Autowired
+    private UserMapper userMapper;
     private static final int STATUS = 1;
     private static final int STATUS_PAYED = 2;
     private static final int PAYTYPE = 1;
@@ -39,6 +38,7 @@ public class OrderServiceImpl implements OrderService {
         for (Order order : orderList) {
             List<Item> itemList = itemMapper.getByOrderId(order.getId());
             order.setItemList(itemList);
+            order.setUser(userMapper.findById(order.getUserId()));
         }
         return orderList;
     }

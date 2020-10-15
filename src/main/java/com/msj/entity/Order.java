@@ -26,6 +26,7 @@ public class Order {
     private String address;
     private String systime;
     private Integer userId;
+    private User user;
     private List<Item> itemList;
 
 }

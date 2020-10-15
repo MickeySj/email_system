@@ -63,5 +63,11 @@ public class OrderController {
         return "index/payok";
     }
 
+    /* 后台管理 */
+    @RequestMapping("/orderList")
+    public String orderList(Model model) {
+        model.addAttribute("orderList", orderService.getAll());
+        return "admin/order_list";
+    }
 }
 

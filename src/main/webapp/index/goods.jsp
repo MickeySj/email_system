@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../index/css/public.css">
     <link rel="stylesheet" type="text/css" href="../index/css/reclassify.css">
-    <link rel="stylesheet" type="text/css" href="../index/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../index/css/bootstrap.min.css">    <link rel="stylesheet" type="text/css" href="../index/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -92,7 +92,7 @@
     </c:if>
 
     <%--    ${page}--%>
-    ${pageHtml}
+<%--    ${pageHtml}--%>
 
 </div>
 
