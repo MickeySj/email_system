@@ -5,10 +5,12 @@ import com.msj.entity.Order;
 import com.msj.entity.User;
 import com.msj.service.ItemService;
 import com.msj.service.OrderService;
+import com.msj.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -64,10 +66,25 @@ public class OrderController {
     }
 
     /* 后台管理 */
+
+    /*订单列表*/
     @RequestMapping("/orderList")
-    public String orderList(Model model) {
-        model.addAttribute("orderList", orderService.getAll());
+    public String orderList(Model model, @RequestParam(name = "current", required = false, defaultValue = "1") int current) {
+        PageUtils PageUtils = new PageUtils();
+        PageUtils.setCurrent(current);
+        PageUtils.setRecordTotal(orderService.getRecordTotal());
+        model.addAttribute("orderList", orderService.getAllLimit(PageUtils.getCurrent(), PageUtils.getPageSize()));
+        model.addAttribute("page", PageUtils);
+        model.addAttribute("url", "/order/orderList");
         return "admin/order_list";
+    }
+
+    @RequestMapping("/status")
+    public String status(Model model, @RequestParam("status") int status, @RequestParam(name = "current", required = false, defaultValue = "1") int current) {
+        PageUtils PageUtils = new PageUtils();
+        PageUtils.setCurrent(current);
+        PageUtils.setRecordTotal(orderService.getRecordTotal());
+        return "";
     }
 }
 

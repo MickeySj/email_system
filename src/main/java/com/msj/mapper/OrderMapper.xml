@@ -14,6 +14,19 @@
     <select id="getAll" resultType="order">
         select * from orders order by id desc;
     </select>
+
+    <select id="getAllLimit" parameterType="int" resultType="order">
+        select * from orders order by id desc limit #{current},#{pageSize};
+    </select>
+
+    <select id="getAllByStatus" parameterType="int" resultType="order">
+        select * from orders where status=#{status} order by id desc limit #{current},#{pageSize};
+    </select>
+
+    <select id="getRecordTotal" resultType="int">
+        select count(1) from orders;
+    </select>
+
     <select id="getByUserId" parameterType="int" resultType="com.msj.entity.Order">
         select * from orders where user_id=#{userId};
     </select>

@@ -44,6 +44,21 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getAllLimit(int current, int pageSize) {
+        return orderMapper.getAllLimit((current - 1) * pageSize, pageSize);
+    }
+
+    @Override
+    public List<Order> getAllByStatus(int status, int current, int pageSize) {
+        return orderMapper.getAllByStatus(status, (current - 1) * pageSize, pageSize);
+    }
+
+    @Override
+    public int getRecordTotal() {
+        return orderMapper.getRecordTotal();
+    }
+
+    @Override
     public List<Order> getByUserId(int userId) {
 /*        List<Order> orderList = orderMapper.getByUserId(userId);
         for (Order order : orderList) {

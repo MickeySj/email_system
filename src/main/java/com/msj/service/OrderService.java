@@ -15,6 +15,12 @@ import java.util.List;
 public interface OrderService {
     List<Order> getAll();
 
+    List<Order> getAllLimit(@Param("current") int current, @Param("pageSize") int pageSize);
+
+    List<Order> getAllByStatus(@Param("status") int status, @Param("current") int current, @Param("pageSize") int pageSize);
+
+    int getRecordTotal();
+
     List<Order> getByUserId(@Param("userId") int userId);
 
     Order findById(@Param("id") int id);

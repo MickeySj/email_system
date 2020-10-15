@@ -94,30 +94,30 @@
 
     </table>
     <%-- 在此处解析分页数据 前端地址栏中传入数据 --%>
-    <%--    <c:if test="${page!=null}">--%>
-    <nav aria-label="Page navigation" style="text-align: center">
-        <ul class="pagination">
-            <li class="current">
-                <a href="${url}?current=1<c:if test="${type!=null}">&id=${type.id}</c:if>"
-                   aria-label="Previous">
-                    <span aria-hidden="true">首页</span>
-                </a>
-            </li>
-            <c:forEach begin="1" end="${page.pageTotal}" var="page">
-                <li
-                        class="current"><a
-                        href="${url}?current=${page}<c:if test="${type!=null}">&id=${type.id}</c:if>">${page}</a>
+    <c:if test="${page!=null}">
+        <nav aria-label="Page navigation" style="text-align: center">
+            <ul class="pagination">
+                <li class="current">
+                    <a href="${url}?current=1<c:if test="${type!=null}">&id=${type.id}</c:if>"
+                       aria-label="Previous">
+                        <span aria-hidden="true">首页</span>
+                    </a>
                 </li>
-            </c:forEach>
-            <li class="current">
-                <a href="${url}?current=${page.pageTotal}<c:if test="${type!=null}">&id=${type.id}</c:if>"
-                   aria-label="Next">
-                    <span aria-hidden="true">尾页</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <%--    </c:if>--%>
+                <c:forEach begin="1" end="${page.pageTotal}" var="page">
+                    <li
+                            class="current"><a
+                            href="${url}?current=${page}<c:if test="${type!=null}">&id=${type.id}</c:if>">${page}</a>
+                    </li>
+                </c:forEach>
+                <li class="current">
+                    <a href="${url}?current=${page.pageTotal}<c:if test="${type!=null}">&id=${type.id}</c:if>"
+                       aria-label="Next">
+                        <span aria-hidden="true">尾页</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </c:if>
 
 </div>
 </body>

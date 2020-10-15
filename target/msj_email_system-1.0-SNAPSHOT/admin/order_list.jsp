@@ -6,7 +6,7 @@
 <head>
     <title>订单列表</title>
     <link rel="stylesheet" href="../admin/css/bootstrap.css"/>
-<%--    <link rel="stylesheet" type="text/css" href="../index/css/bootstrap.min.css">--%>
+    <%--    <link rel="stylesheet" type="text/css" href="../index/css/bootstrap.min.css">--%>
 </head>
 <body>
 <div class="container">
@@ -54,7 +54,7 @@
                 <td><p>${order.total}</p></td>
                 <td>
                     <c:forEach var="item" items="${order.itemList}">
-                        <a target="_blank" href="../index/detail?id=${item.good.id}"><p>${item.good.name}</p></a>
+                        <a target="_blank" href="/goods/detail?id=${item.good.id}"><p>${item.good.name}</p></a>
                         <p>¥${item.price} x ${item.amount}</p>
                     </c:forEach>
                 </td>
@@ -94,7 +94,7 @@
 
     </table>
     <%-- 在此处解析分页数据 前端地址栏中传入数据 --%>
-<%--    <c:if test="${page!=null}">--%>
+    <c:if test="${page!=null}">
         <nav aria-label="Page navigation" style="text-align: center">
             <ul class="pagination">
                 <li class="current">
@@ -117,7 +117,7 @@
                 </li>
             </ul>
         </nav>
-<%--    </c:if>--%>
+    </c:if>
 
 </div>
 </body>
