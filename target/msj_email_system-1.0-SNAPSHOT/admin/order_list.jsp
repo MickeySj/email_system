@@ -17,18 +17,23 @@
 
     <ul role="tablist" class="nav nav-tabs">
         <li
-                <c:if test='${status==0}'>class="active"</c:if> role="presentation"><a href="orderList">全部订单</a></li>
-        <li
-                <c:if test='${status==1}'>class="active"</c:if> role="presentation"><a href="orderList?status=1">未付款</a>
+                <c:if test='${status==0}'>class="active"</c:if> role="presentation"><a href="/order/orderList">全部订单</a>
         </li>
         <li
-                <c:if test='${status==2}'>class="active"</c:if> role="presentation"><a href="orderList?status=2">已付款</a>
+                <c:if test='${status==1}'>class="active"</c:if> role="presentation"><a
+                href="/order/status?status=1">未付款</a>
         </li>
         <li
-                <c:if test='${status==3}'>class="active"</c:if> role="presentation"><a href="orderList?status=3">配送中</a>
+                <c:if test='${status==2}'>class="active"</c:if> role="presentation"><a
+                href="/order/status?status=2">已付款</a>
         </li>
         <li
-                <c:if test='${status==4}'>class="active"</c:if> role="presentation"><a href="orderList?status=4">已完成</a>
+                <c:if test='${status==3}'>class="active"</c:if> role="presentation"><a
+                href="/order/status?status=3">配送中</a>
+        </li>
+        <li
+                <c:if test='${status==4}'>class="active"</c:if> role="presentation"><a
+                href="/order/status?status=4">已完成</a>
         </li>
     </ul>
 
@@ -82,12 +87,12 @@
                 <td><p>${order.systime}</p></td>
                 <td>
                     <c:if test="${order.status==2}">
-                        <a class="btn btn-success" href="orderSend?id=${order.id}&status=${status}">发货</a>
+                        <a class="btn btn-success" href="/order/orderSend?id=${order.id}&status=${status}">发货</a>
                     </c:if>
                     <c:if test="${order.status==3}">
-                        <a class="btn btn-warning" href="orderFinish?id=${order.id}&status=${status}">完成</a>
+                        <a class="btn btn-warning" href="/order/orderFinish?id=${order.id}&status=${status}">完成</a>
                     </c:if>
-                    <a class="btn btn-danger" href="orderDelete?id=${order.id}&status=${status}">删除</a>
+                    <a class="btn btn-danger" href="/order/orderDelete?id=${order.id}&status=${status}">删除</a>
                 </td>
             </tr>
         </c:forEach>
@@ -98,7 +103,7 @@
         <nav aria-label="Page navigation" style="text-align: center">
             <ul class="pagination">
                 <li class="current">
-                    <a href="${url}?current=1<c:if test="${type!=null}">&id=${type.id}</c:if>"
+                    <a href="${url}?current=1<c:if test="${status!=null}">&status=${status}</c:if>"
                        aria-label="Previous">
                         <span aria-hidden="true">首页</span>
                     </a>
@@ -106,11 +111,11 @@
                 <c:forEach begin="1" end="${page.pageTotal}" var="page">
                     <li
                             class="current"><a
-                            href="${url}?current=${page}<c:if test="${type!=null}">&id=${type.id}</c:if>">${page}</a>
+                            href="${url}?current=${page}<c:if test="${status!=null}">&status=${status}</c:if>">${page}</a>
                     </li>
                 </c:forEach>
                 <li class="current">
-                    <a href="${url}?current=${page.pageTotal}<c:if test="${type!=null}">&id=${type.id}</c:if>"
+                    <a href="${url}?current=${page.pageTotal}<c:if test="${status!=null}">&status=${status}</c:if>"
                        aria-label="Next">
                         <span aria-hidden="true">尾页</span>
                     </a>
