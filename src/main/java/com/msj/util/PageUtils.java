@@ -1,7 +1,6 @@
 package com.msj.util;
 
 
-
 /**
  * @author sj
  * @version 1.0
@@ -49,8 +48,11 @@ public class PageUtils {
 
     public void setRecordTotal(Integer recordTotal) {
         this.recordTotal = recordTotal;
-        int pageTotal = recordTotal % pageSize == 0 ? (recordTotal / pageSize) : ((recordTotal / pageSize) + 1);
-        this.setPageTotal(pageTotal);
+        pageTotal = 1;
+        if (recordTotal != 0) {
+            int pageTotal = recordTotal % pageSize == 0 ? (recordTotal / pageSize) : ((recordTotal / pageSize) + 1);
+            this.setPageTotal(pageTotal);
+        }
     }
 
     public Integer getPageTotal() {

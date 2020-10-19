@@ -5,6 +5,7 @@ import com.msj.entity.*;
 import com.msj.mapper.*;
 import com.msj.service.OrderService;
 import com.msj.util.TimeUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private UserMapper userMapper;
     private static final int STATUS = 1;
+    private static final int SENDSTATUS = 3;
+    private static final int FINALSTATUS = 4;
     private static final int STATUS_PAYED = 2;
     private static final int PAYTYPE = 1;
 
@@ -54,8 +57,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int getRecordTotal() {
-        return orderMapper.getRecordTotal();
+    public int getRecordTotal(int status) {
+        return orderMapper.getRecordTotal(status);
     }
 
     @Override
@@ -137,5 +140,17 @@ public class OrderServiceImpl implements OrderService {
         Oorder.setPaytype(order.getPaytype() == null ? Oorder.getPaytype() : order.getPaytype());
         System.out.println("new Oorder=" + Oorder);
         return orderMapper.update(Oorder);
+    }
+
+    @Override
+    public int orderSend(Order order) {
+        order.setStatus(SENDSTATUS);
+        return orderMapper.update(order);
+    }
+
+    @Override
+    public int orderFinish(Order order) {
+        order.setStatus(FINALSTATUS);
+        return orderMapper.update(order);
     }
 }

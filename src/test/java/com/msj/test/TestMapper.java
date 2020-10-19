@@ -34,11 +34,14 @@ import java.util.List;
 @ContextConfiguration({"classpath:spring-mybatis.xml", "classpath:spring-mvc.xml"})
 public class TestMapper {
     @Autowired
+    OrderMapper orderMapper;
+    @Autowired
     OrderService orderService;
 
     @Test
     public void getAllClasses() {
-        System.out.println(orderService.getAll());
+
+        System.out.println(orderMapper.getRecordTotal(1));
     }
 
     @Test

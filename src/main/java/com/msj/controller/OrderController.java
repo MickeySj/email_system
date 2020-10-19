@@ -6,6 +6,7 @@ import com.msj.entity.User;
 import com.msj.service.ItemService;
 import com.msj.service.OrderService;
 import com.msj.util.PageUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,19 +73,50 @@ public class OrderController {
     public String orderList(Model model, @RequestParam(name = "current", required = false, defaultValue = "1") int current) {
         PageUtils PageUtils = new PageUtils();
         PageUtils.setCurrent(current);
-        PageUtils.setRecordTotal(orderService.getRecordTotal());
+        PageUtils.setRecordTotal(orderService.getRecordTotal(0));
         model.addAttribute("orderList", orderService.getAllLimit(PageUtils.getCurrent(), PageUtils.getPageSize()));
         model.addAttribute("page", PageUtils);
         model.addAttribute("url", "/order/orderList");
         return "admin/order_list";
     }
 
+    /* 根据状态 */
     @RequestMapping("/status")
     public String status(Model model, @RequestParam("status") int status, @RequestParam(name = "current", required = false, defaultValue = "1") int current) {
         PageUtils PageUtils = new PageUtils();
         PageUtils.setCurrent(current);
-        PageUtils.setRecordTotal(orderService.getRecordTotal());
-        return "";
+        PageUtils.setRecordTotal(orderService.getRecordTotal(status));
+        model.addAttribute("orderList", orderService.getAllByStatus(status, current, PageUtils.getPageSize()));
+        model.addAttribute("page", PageUtils);
+        model.addAttribute("url", "/order/status");
+        model.addAttribute("status", status);
+        return "admin/order_list";
+    }
+
+    /* 修改订单为发货状态 */
+    @RequestMapping("/orderSend")
+    public String orderSend(@RequestParam("id") int id, @RequestParam("status") int status, Model model) {
+        Order order = orderService.findById(id);
+        orderService.orderSend(order);
+        model.addAttribute("status", status);
+        return "forward:/order/status";
+    }
+
+    /* 修改订单为完成状态 */
+    @RequestMapping("/orderFinish")
+    public String orderFinish(@RequestParam("id") int id, @RequestParam("status") int status, Model model) {
+        Order order = orderService.findById(id);
+        orderService.orderFinish(order);
+        model.addAttribute("status", status);
+        return "forward:/order/status";
+    }
+
+    /* 删除订单 */
+    @RequestMapping("/orderDelete")
+    public String orderDelete(@RequestParam("id") int id, @RequestParam("status") int status, Model model) {
+        orderService.delete(id);
+        model.addAttribute("status", status);
+        return "forward:/order/status";
     }
 }
 

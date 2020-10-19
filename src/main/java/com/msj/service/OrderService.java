@@ -19,7 +19,7 @@ public interface OrderService {
 
     List<Order> getAllByStatus(@Param("status") int status, @Param("current") int current, @Param("pageSize") int pageSize);
 
-    int getRecordTotal();
+    int getRecordTotal(@Param("status") int status);
 
     List<Order> getByUserId(@Param("userId") int userId);
 
@@ -30,4 +30,8 @@ public interface OrderService {
     int delete(@Param("id") int id);
 
     int update(Order order) throws MyException;
+
+    int orderSend(Order order);
+
+    int orderFinish(Order order);
 }

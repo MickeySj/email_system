@@ -17,7 +17,7 @@ public interface OrderMapper {
 
     List<Order> getAllByStatus(@Param("status") int status, @Param("current") int current, @Param("pageSize") int pageSize);
 
-    int getRecordTotal();
+    int getRecordTotal(@Param("status") int status);
 
     List<Order> getByUserId(@Param("userId") int userId);
 
