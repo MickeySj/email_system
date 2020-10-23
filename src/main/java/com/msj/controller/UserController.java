@@ -37,16 +37,16 @@ public class UserController {
 
     @RequestMapping("/register")
     public String register(Model model, User user) {
-        String msg = "用户名已存在";
         if (user != null) {
             if (service.findByName(user.getUsername()) != null) {
-                model.addAttribute("msg", msg);
+                model.addAttribute("msg", "用户名已存在");
                 return "index/register";
             }
             user.setPassword(MD5Utils.md5Password(user.getPassword()));
             int flag = service.insert(user);
         }
-        return "index/register";
+        model.addAttribute("msg", "注册成功,请登录");
+        return "index/login";
     }
 
     @RequestMapping("/login")

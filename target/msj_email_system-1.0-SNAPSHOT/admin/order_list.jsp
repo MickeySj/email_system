@@ -87,12 +87,12 @@
                 <td><p>${order.systime}</p></td>
                 <td>
                     <c:if test="${order.status==2}">
-                        <a class="btn btn-success" href="/order/orderSend?id=${order.id}&status=${status}">发货</a>
+                        <a class="btn btn-success" href="/order/orderSend?id=${order.id}&status=${order.status}">发货</a>
                     </c:if>
                     <c:if test="${order.status==3}">
-                        <a class="btn btn-warning" href="/order/orderFinish?id=${order.id}&status=${status}">完成</a>
+                        <a class="btn btn-warning" href="/order/orderFinish?id=${order.id}&status=${order.status}">完成</a>
                     </c:if>
-                    <a class="btn btn-danger" href="/order/orderDelete?id=${order.id}&status=${status}">删除</a>
+                    <a class="btn btn-danger" href="/order/orderDelete?id=${order.id}&status=${order.status}">删除</a>
                 </td>
             </tr>
         </c:forEach>
