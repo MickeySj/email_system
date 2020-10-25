@@ -24,7 +24,7 @@ public class ImgLoadUtils {
      * @desc 保存上传图片 并返回图片的src地址
      */
     public static String upLoad(HttpServletRequest request, MultipartFile img) throws IOException {
-        String src = "";
+        String src = null;
         if (!img.isEmpty()) {
 //            String originalPath= request.
             System.out.println("request.getRequestURI()=" + request.getRequestURI());

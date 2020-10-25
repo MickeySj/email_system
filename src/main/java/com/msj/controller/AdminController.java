@@ -30,10 +30,13 @@ public class AdminController {
 
     @RequestMapping("/login")
     public String login(Admin admin, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("admin") != null) {
+            return "admin/index";
+        }
         if (admin.getUsername() != null) {
             Admin oAdmin = adminService.findByName(admin.getUsername());
             if (oAdmin != null && MD5Utils.md5Password(admin.getPassword()).equals(oAdmin.getPassword())) {
-                HttpSession session = request.getSession();
                 session.setAttribute("admin", oAdmin);
                 request.setAttribute("msg", "登陆成功");
                 return "admin/index";

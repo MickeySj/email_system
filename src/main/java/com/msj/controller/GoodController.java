@@ -95,7 +95,7 @@ public class GoodController {
 
     @RequestMapping("/goodUpdate")
     public String goodUpdate(Good good, int typeId, MultipartFile file, HttpServletRequest request) throws IOException {
-        String src = ImgLoadUtils.upLoad(request, file);
+        String src = ImgLoadUtils.upLoad(request, file) != null ? ImgLoadUtils.upLoad(request, file) : good.getCover();
         good.setCover(src);
         good.setType(typeService.findById(typeId));
         goodService.update(good);

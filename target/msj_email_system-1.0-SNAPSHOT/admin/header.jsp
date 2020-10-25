@@ -12,7 +12,7 @@
 <nav class="navbar navbar-default" role="navigation" style="background-color:#fbf8ef;">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="index">后台首页</a>
+            <a class="navbar-brand" href="/admin/index">后台首页</a>
         </div>
         <div>
             <ul class="nav navbar-nav">
@@ -21,7 +21,7 @@
                 <li <c:if test="${flag==3}">class="active"</c:if>><a href="/order/orderList">订单管理</a></li>
                 <li <c:if test="${flag==4}">class="active"</c:if>><a href="/user/userList">用户管理</a></li>
                 <li <c:if test="${flag==5}">class="active"</c:if>><a href="/admin/adminList">管理员</a></li>
-                <li><a href="logout">退出</a></li>
+                <li><a href="/admin/logout">退出</a></li>
             </ul>
         </div>
     </div>

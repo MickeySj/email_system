@@ -19,7 +19,7 @@
     <div class="rebackgroundimg">
         <div class="registruer" style="height: 600px;">
             <div class="regrnamepwd">
-                <p class="iteljk">注册<span><a href="login">已注册可直接登录</a></span></p>
+                <p class="iteljk">注册<span><a href="/index/login">已注册可直接登录</a></span></p>
                 <form action="/user/register" method="post">
                     <ul class="ul_form">
                         <li class="user">
